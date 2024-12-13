@@ -4,8 +4,8 @@ import { Sidebar } from '@/components/ui'
 import {} from '@clerk/nextjs'
 import {
   IconBell,
+  IconBrandNextjs,
   IconDashboard,
-  IconLogin,
   IconMessage,
   IconPeople,
   IconPersonAdd,
@@ -22,9 +22,9 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
           className="flex items-center group-data-[collapsible=dock]:size-10 group-data-[collapsible=dock]:justify-center gap-x-2"
           href="/"
         >
-          <IconLogin className="size-5" />
+          <IconBrandNextjs className="size-5" />
           <strong className="font-medium group-data-[collapsible=dock]:hidden">
-            Next SNS
+            First SNS
           </strong>
         </Link>
       </Sidebar.Header>
