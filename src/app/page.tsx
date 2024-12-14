@@ -1,6 +1,8 @@
 import { PostParentCard } from '@/features/posts/components/post-parent-card'
 import { TrendingCard } from '@/features/posts/components/trending-card'
 
+export const dynamic = 'force-dynamic'
+
 const Home = () => {
   return (
     <div className="grid grid-cols-10 gap-4">
