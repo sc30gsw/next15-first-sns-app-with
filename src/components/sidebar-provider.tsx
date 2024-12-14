@@ -1,8 +1,8 @@
 'use client'
 
 import { AppSidebar } from '@/components/app-sidebar'
+import { SidebarUserMenu } from '@/components/sidebar-user-menu'
 import { Button, Menu, Separator, Sidebar } from '@/components/ui'
-import {} from '@clerk/nextjs'
 import {
   IconBell,
   IconChevronLgDown,
@@ -34,14 +34,7 @@ export const SidebarProvider = ({ children }: { children: ReactNode }) => {
               <SearchField className="sm:inline hidden sm:ml-1.5" />
               <IconBell className="size-6" />
               <IconMail className="size-6" />
-              {/* <SignedIn>
-                <UserButton />
-              </SignedIn>
-              <SignedOut>
-                <Link href={'/sign-in'} className="relative" prefetch={false}>
-                  <IconLogin className="h-6 w-6 text-muted-foreground" />
-                </Link>
-              </SignedOut> */}
+              <SidebarUserMenu />
             </div>
           </div>
           <div className="flex sm:hidden items-center gap-x-2">

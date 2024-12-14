@@ -1,7 +1,5 @@
-import type * as React from 'react'
-
+import { SidebarUserMenu } from '@/components/sidebar-user-menu'
 import { Sidebar } from '@/components/ui'
-import {} from '@clerk/nextjs'
 import {
   IconBell,
   IconBrandNextjs,
@@ -13,8 +11,9 @@ import {
   IconSettings,
 } from 'justd-icons'
 import Link from 'next/link'
+import type { ComponentProps } from 'react'
 
-export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
+export const AppSidebar = (props: ComponentProps<typeof Sidebar>) => {
   return (
     <Sidebar {...props}>
       <Sidebar.Header>
@@ -57,28 +56,7 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
         </Sidebar.Section>
       </Sidebar.Content>
       <Sidebar.Footer className="lg:flex lg:flex-row hidden items-center">
-        {/* <SignedIn>
-          <Menu>
-            <div className="flex items-center w-full py-2 gap-4">
-              <UserButton />
-              <span className="group-data-[collapsible=dock]:hidden flex items-center justify-center">
-                John Doe
-              </span>
-            </div>
-          </Menu>
-        </SignedIn>
-        <SignedOut>
-          <Link
-            href={'/sign-in'}
-            className="flex items-center py-2 gap-2"
-            prefetch={false}
-          >
-            <IconLogin className="h-6 w-6 text-muted-foreground" />
-            <span className="group-data-[collapsible=dock]:hidden flex items-center justify-center">
-              Log In
-            </span>
-          </Link>
-        </SignedOut> */}
+        <SidebarUserMenu />
       </Sidebar.Footer>
       <Sidebar.Rail />
     </Sidebar>

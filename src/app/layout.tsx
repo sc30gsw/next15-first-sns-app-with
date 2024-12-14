@@ -27,7 +27,6 @@ const RootLayout = ({
   children: ReactNode
 }>) => {
   return (
-    // <ClerkProvider>
     <html lang="ja">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-dvh w-dvw`}
@@ -37,7 +36,6 @@ const RootLayout = ({
         </Providers>
       </body>
     </html>
-    // </ClerkProvider>
   )
 }
 
