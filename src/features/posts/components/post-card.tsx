@@ -24,7 +24,7 @@ export const PostCard = ({ post, children }: PostCardProps) => {
           <div className="flex w-full gap-4 items-center">
             <Link href={`/profile/${post.author?.id}`}>
               <Avatar
-                src={post.author?.image ?? 'placeholder.png'}
+                src={post.author?.image ? post.author.image : 'placeholder.png'}
                 alt="post avatar"
                 initials="PA"
               />
@@ -33,7 +33,9 @@ export const PostCard = ({ post, children }: PostCardProps) => {
               <h5 className="text-base font-semibold">
                 {post.author?.name ?? 'John Doe'}
               </h5>
-              <p className="text-neutral-400">@{post.author?.id}</p>
+              <p className="text-neutral-400">
+                @{post.author?.id.substring(0, 12)}
+              </p>
             </div>
           </div>
           <PostMenu post={post} />

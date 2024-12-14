@@ -1,5 +1,6 @@
 'use client'
 
+import '@/utils/zod-error-map-utils'
 import { Button, Form, Loader, TextField } from '@/components/ui'
 import { addPost } from '@/features/posts/actions/add-post-action'
 import { postFormSchema } from '@/features/posts/types/schema/post-form-schema'
@@ -21,6 +22,7 @@ export const PostForm = () => {
       content: '',
     },
   })
+  console.log('🚀 ~ PostForm ~ fields:', fields.content.errors)
 
   return (
     <Form

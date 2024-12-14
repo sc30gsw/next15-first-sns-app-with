@@ -1,10 +1,10 @@
 'use server'
 
 import { postFormSchema } from '@/features/posts/types/schema/post-form-schema'
+import { getSession } from '@/libs/auth/session'
 import { db } from '@/libs/db/drizzle'
 import { posts } from '@/libs/db/schema'
 import { parseWithZod } from '@conform-to/zod'
-import { getSession } from 'next-auth/react'
 import { revalidateTag } from 'next/cache'
 
 // https://conform.guide/integration/nextjs
