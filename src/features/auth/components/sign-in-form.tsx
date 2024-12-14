@@ -93,16 +93,16 @@ export const SignInForm = () => {
         />
 
         <div className="flex items-center gap-1">
-          Already have an account?{' '}
-          <Link href="/sign-in" className="text-blue-500 hover:underline">
-            Login
+          Don&apos;t have an account?{' '}
+          <Link href="/sign-up" className="text-blue-500 hover:underline">
+            Sign Up
           </Link>
         </div>
       </Card.Content>
       <Card.Footer className="flex flex-col gap-2">
         <Button type="submit" className="w-full" isDisabled={isPending}>
           {isPending && <Loader />}
-          Sign Up
+          Log In
         </Button>
         <Button
           type="button"

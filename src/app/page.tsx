@@ -1,8 +1,19 @@
-import { getSession } from '@/libs/auth/session'
+import { PostParentCard } from '@/features/posts/components/post-parent-card'
+import { TrendingCard } from '@/features/posts/components/trending-card'
 
-const Home = async () => {
-  const session = await getSession()
-  return <div>hello {session?.user?.id}</div>
+export const dynamic = 'force-dynamic'
+
+const Home = () => {
+  return (
+    <div className="grid grid-cols-10 gap-4">
+      <div className="col-span-10 md:col-span-10 lg:col-span-6">
+        <PostParentCard />
+      </div>
+      <div className="col-span-10 lg:col-span-4 hidden sm:block">
+        <TrendingCard />
+      </div>
+    </div>
+  )
 }
 
 export default Home

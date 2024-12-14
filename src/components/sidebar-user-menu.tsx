@@ -36,7 +36,7 @@ export const SidebarUserMenu = () => {
       <Menu.Trigger className="flex items-center py-2 gap-2">
         <Avatar
           status="online"
-          src={session.user?.image ?? 'placeholder.png'}
+          src={session.user?.image ?? '/placeholder.png'}
           alt="logged in user"
         />
         <Heading level={4}>{session.user?.name}</Heading>
