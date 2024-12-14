@@ -1,6 +1,5 @@
 import { db } from '@/libs/db/drizzle'
 import { posts } from '@/libs/db/schema'
-import { sessionMiddleware } from '@/libs/session-middleware'
 import { desc, eq } from 'drizzle-orm'
 import { Hono } from 'hono'
 
@@ -16,13 +15,7 @@ const app = new Hono()
 
     return c.json({ posts: postList }, 200)
   })
-  .get('/:postId', sessionMiddleware, async (c) => {
-    const user = c.get('user')
-
-    if (!user) {
-      return c.json({ error: 'Unauthorized' }, 401)
-    }
-
+  .get('/:postId', async (c) => {
     const { postId } = c.req.param()
 
     const post = await db.query.posts.findFirst({
