@@ -1,17 +1,13 @@
 import { Avatar, Card } from '@/components/ui'
 import { LikeButton } from '@/features/likes/components/like-button'
 import { PostMenu } from '@/features/posts/components/post-menu'
-
-import type { client } from '@/libs/rpc'
+import type { OptimisticPost } from '@/features/posts/types/optimistic-post'
 import { formatTimeAgo } from '@/utils/format-time'
-import type { InferResponseType } from 'hono'
 import { IconClock, IconForward, IconMessage } from 'justd-icons'
 import Link from 'next/link'
 
-type Post = InferResponseType<typeof client.api.posts.$get>['posts'][number]
-
 type PostCardProps = {
-  post: Post
+  post: OptimisticPost
 }
 
 export const PostCard = ({ post }: PostCardProps) => {

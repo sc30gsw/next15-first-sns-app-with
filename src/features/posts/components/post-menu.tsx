@@ -3,9 +3,7 @@
 import { Menu } from '@/components/ui'
 import { deletePost } from '@/features/posts/actions/delete-post-action'
 import { PostEditModal } from '@/features/posts/components/post-edit-modal'
-import type { client } from '@/libs/rpc'
-
-import type { InferResponseType } from 'hono'
+import type { OptimisticPost } from '@/features/posts/types/optimistic-post'
 import {
   IconDotsHorizontal,
   IconPencilBox,
@@ -17,10 +15,8 @@ import Link from 'next/link'
 import { useState, useTransition } from 'react'
 import { toast } from 'sonner'
 
-type Post = InferResponseType<typeof client.api.posts.$get>['posts'][number]
-
 type PostMenuProps = {
-  post: Post
+  post: OptimisticPost
 }
 
 export const PostMenu = ({ post }: PostMenuProps) => {
