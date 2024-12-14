@@ -7,16 +7,14 @@ import { formatTimeAgo } from '@/utils/format-time'
 import type { InferResponseType } from 'hono'
 import { IconClock, IconForward, IconMessage } from 'justd-icons'
 import Link from 'next/link'
-import type { ReactNode } from 'react'
 
 type Post = InferResponseType<typeof client.api.posts.$get>['posts'][number]
 
 type PostCardProps = {
   post: Post
-  children?: ReactNode
 }
 
-export const PostCard = ({ post, children }: PostCardProps) => {
+export const PostCard = ({ post }: PostCardProps) => {
   return (
     <Card>
       <Card.Header>
@@ -24,7 +22,9 @@ export const PostCard = ({ post, children }: PostCardProps) => {
           <div className="flex w-full gap-4 items-center">
             <Link href={`/profile/${post.author?.id}`}>
               <Avatar
-                src={post.author?.image ? post.author.image : 'placeholder.png'}
+                src={
+                  post.author?.image ? post.author?.image : '/placeholder.png'
+                }
                 alt="post avatar"
                 initials="PA"
               />
@@ -67,7 +67,6 @@ export const PostCard = ({ post, children }: PostCardProps) => {
           </div>
         </div>
       </Card.Content>
-      {children}
     </Card>
   )
 }
