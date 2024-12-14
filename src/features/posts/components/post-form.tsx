@@ -7,6 +7,7 @@ import { getFormProps, getInputProps, useForm } from '@conform-to/react'
 import { getZodConstraint, parseWithZod } from '@conform-to/zod'
 import { IconSend } from 'justd-icons'
 import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import { useActionState } from 'react'
 
 type PostFormProps = {
@@ -15,6 +16,7 @@ type PostFormProps = {
 
 export const PostForm = ({ addOptimisticPost }: PostFormProps) => {
   const { data: session } = useSession()
+  const router = useRouter()
 
   const [lastResult, action, isPending] = useActionState(addPost, null)
 
@@ -56,6 +58,11 @@ export const PostForm = ({ addOptimisticPost }: PostFormProps) => {
           isDisabled={isPending}
           className="w-full"
           errorMessage={''}
+          onFocus={() => {
+            if (!session) {
+              router.push('/sign-in')
+            }
+          }}
         />
         <span id={fields.content.errorId} className="mt-1 text-sm text-red-500">
           {fields.content.errors}

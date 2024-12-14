@@ -47,14 +47,7 @@ export const PostCardContents = ({ posts }: PostCardContentsProps) => {
             name: session?.user?.name ?? '',
             image: session?.user?.image ?? '',
           },
-          likes: [
-            {
-              postId,
-              userId: session?.user?.id ?? '',
-              createdAt: new Date().toISOString(),
-              updatedAt: new Date().toISOString(),
-            },
-          ],
+          likes: [],
         },
         ...currentState,
       ]

@@ -1,10 +1,9 @@
 import { PostCard } from '@/features/posts/components/post-card'
-import { getSession } from '@/libs/auth/session'
 
 import { fetcher } from '@/libs/fetcher'
 import { client } from '@/libs/rpc'
 import type { InferResponseType } from 'hono'
-import { notFound, redirect } from 'next/navigation'
+import { notFound } from 'next/navigation'
 
 const fetchPost = async (postId: string) => {
   type ResType = InferResponseType<(typeof client.api.posts)[':postId']['$get']>
@@ -18,6 +17,8 @@ const fetchPost = async (postId: string) => {
   })
 
   if (!res.post) {
+    // https://nextjs.org/docs/app/api-reference/functions/unauthorized
+    // TODO: Unauthorized が安定リリースされたら変更
     notFound()
   }
 
@@ -31,12 +32,6 @@ type PostIdPageParams = {
 }
 
 const PostIdPage = async ({ params }: PostIdPageParams) => {
-  const session = await getSession()
-
-  if (!session?.user?.id) {
-    redirect('/sign-in')
-  }
-
   const postId = (await params).postId
 
   const post = await fetchPost(postId)

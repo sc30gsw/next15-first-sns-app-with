@@ -7,6 +7,7 @@ import { getFormProps, getInputProps, useForm } from '@conform-to/react'
 import { getZodConstraint, parseWithZod } from '@conform-to/zod'
 import { IconHeart, IconHeartFill } from 'justd-icons'
 import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import { useActionState, useOptimistic } from 'react'
 
 type LikeButtonProps = {
@@ -16,6 +17,7 @@ type LikeButtonProps = {
 
 export const LikeButton = ({ postId, initialLikes }: LikeButtonProps) => {
   const { data: session } = useSession()
+  const router = useRouter()
 
   const [optimisticLike, setOptimisticLike] = useOptimistic<
     { likeCount: number; isLiked: boolean },
@@ -44,6 +46,11 @@ export const LikeButton = ({ postId, initialLikes }: LikeButtonProps) => {
       return parseWithZod(formData, { schema: likeFormSchema })
     },
     onSubmit() {
+      if (!session) {
+        router.push('/sign-in')
+        return
+      }
+
       setOptimisticLike()
     },
     defaultValue: {
