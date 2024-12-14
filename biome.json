@@ -1,14 +1,14 @@
 {
-	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-	"vcs": {
-		"enabled": false,
-		"clientKind": "git",
-		"useIgnoreFile": false
-	},
-	"files": {
-		"ignoreUnknown": false,
-		"ignore": []
-	},
+  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "vcs": {
+    "enabled": false,
+    "clientKind": "git",
+    "useIgnoreFile": false
+  },
+  "files": {
+    "ignoreUnknown": false,
+    "ignore": []
+  },
   "formatter": {
     "enabled": true,
     "indentStyle": "space"
@@ -50,7 +50,8 @@
         "postcss.config.mjs",
         "next.config.ts",
         "components/ui/index.ts",
-        "drizzle.config.ts"
+        "drizzle.config.ts",
+        "env.ts"
       ],
       "linter": {
         "rules": {
