@@ -23,7 +23,6 @@ export const deletePost = async (postId?: string) => {
     revalidateTag('posts')
     return { isSuccess: true }
   } catch (err) {
-    console.log('🚀 ~ deletePost ~ err:', err)
     return { isSuccess: false, error: { message: 'Failed to delete post' } }
   }
 }
