@@ -9,8 +9,8 @@ import { useActionState, useEffect } from 'react'
 import { toast } from 'sonner'
 
 type PostEditModalProps = {
-  postId: string
-  content: string
+  postId?: string
+  content?: string
   isOpen: boolean
   onClose: () => void
 }
@@ -59,6 +59,10 @@ export const PostEditModal = ({
         <Form
           {...getFormProps(form)}
           action={(formData) => {
+            if (!postId) {
+              return
+            }
+
             formData.append('postId', postId)
             action(formData)
           }}
