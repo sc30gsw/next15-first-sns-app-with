@@ -13,6 +13,7 @@ import {
 } from 'justd-icons'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useState, useTransition } from 'react'
 import { toast } from 'sonner'
 
@@ -24,6 +25,7 @@ type PostMenuProps = {
 
 export const PostMenu = ({ post }: PostMenuProps) => {
   const { data: session } = useSession()
+  const pathname = usePathname()
 
   const [isPending, startTransition] = useTransition()
 
@@ -44,16 +46,20 @@ export const PostMenu = ({ post }: PostMenuProps) => {
   return (
     <>
       <Menu>
-        <Menu.Trigger>
-          <IconDotsHorizontal />
-        </Menu.Trigger>
+        {pathname === '/' || post.authorId === session?.user?.id ? (
+          <Menu.Trigger>
+            <IconDotsHorizontal />
+          </Menu.Trigger>
+        ) : null}
         <Menu.Content className="min-w-48" placement="bottom">
-          <Menu.Item isDisabled={isPending}>
-            <Link href={`/${post.id}`} className="flex items-center gap-1">
-              <IconResizeOutIn />
-              View
-            </Link>
-          </Menu.Item>
+          {pathname === '/' && (
+            <Menu.Item isDisabled={isPending}>
+              <Link href={`/${post.id}`} className="flex items-center gap-1">
+                <IconResizeOutIn />
+                View
+              </Link>
+            </Menu.Item>
+          )}
           {post.authorId === session?.user?.id && (
             <>
               <Menu.Item
