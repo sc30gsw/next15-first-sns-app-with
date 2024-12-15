@@ -19,7 +19,7 @@ import { toast } from 'sonner'
 type ResType = InferResponseType<(typeof client.api.posts)[':postId']['$get']>
 
 type PostMenuProps = {
-  post: ResType['post']
+  post: NonNullable<ResType['post']>
 }
 
 export const PostMenu = ({ post }: PostMenuProps) => {
@@ -49,15 +49,12 @@ export const PostMenu = ({ post }: PostMenuProps) => {
         </Menu.Trigger>
         <Menu.Content className="min-w-48" placement="bottom">
           <Menu.Item isDisabled={isPending}>
-            <Link
-              href={`/posts/${post?.id}`}
-              className="flex items-center gap-1"
-            >
+            <Link href={`/${post.id}`} className="flex items-center gap-1">
               <IconResizeOutIn />
               View
             </Link>
           </Menu.Item>
-          {post?.authorId === session?.user?.id && (
+          {post.authorId === session?.user?.id && (
             <>
               <Menu.Item
                 isDisabled={isPending}

@@ -11,8 +11,8 @@ import { useRouter } from 'next/navigation'
 import { useActionState, useOptimistic } from 'react'
 
 type LikeButtonProps = {
-  postId?: string
-  initialLikes?: string[]
+  postId: string
+  initialLikes: string[]
 }
 
 export const LikeButton = ({ postId, initialLikes }: LikeButtonProps) => {
@@ -24,11 +24,10 @@ export const LikeButton = ({ postId, initialLikes }: LikeButtonProps) => {
     void
   >(
     {
-      likeCount: initialLikes?.length || 0,
-      isLiked:
-        session?.user?.id && initialLikes
-          ? initialLikes?.includes(session.user.id)
-          : false,
+      likeCount: initialLikes.length || 0,
+      isLiked: session?.user?.id
+        ? initialLikes?.includes(session.user.id)
+        : false,
     },
     (currentState) => ({
       likeCount: currentState.isLiked

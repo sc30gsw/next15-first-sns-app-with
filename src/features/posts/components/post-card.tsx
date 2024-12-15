@@ -10,7 +10,7 @@ import Link from 'next/link'
 type ResType = InferResponseType<(typeof client.api.posts)[':postId']['$get']>
 
 type PostCardProps = {
-  post: ResType['post']
+  post: NonNullable<ResType['post']>
 }
 
 export const PostCard = ({ post }: PostCardProps) => {
@@ -19,21 +19,19 @@ export const PostCard = ({ post }: PostCardProps) => {
       <Card.Header>
         <div className="flex justify-between items-center">
           <div className="flex w-full gap-4 items-center">
-            <Link href={`/profile/${post?.author?.id}`}>
+            <Link href={`/profile/${post.author.id}`}>
               <Avatar
-                src={
-                  post?.author?.image ? post?.author?.image : '/placeholder.png'
-                }
+                src={post.author.image ? post.author.image : '/placeholder.png'}
                 alt="post avatar"
                 initials="PA"
               />
             </Link>
             <div className="flex gap-0 sm:gap-2 flex-col sm:flex-row">
               <h5 className="text-base font-semibold">
-                {post?.author?.name ?? 'John Doe'}
+                {post.author.name ?? 'John Doe'}
               </h5>
               <p className="text-neutral-400">
-                @{post?.author?.id.substring(0, 12)}
+                @{post.author.id.substring(0, 12)}
               </p>
             </div>
           </div>
@@ -41,14 +39,14 @@ export const PostCard = ({ post }: PostCardProps) => {
         </div>
       </Card.Header>
       <Card.Content className="space-y-4">
-        <Link href={`/posts/${post?.id}`}>
-          <p className="break-words text-lg">{post?.content}</p>
+        <Link href={`/${post.id}`}>
+          <p className="break-words text-lg">{post.content}</p>
         </Link>
         <div className="flex justify-between items-center w-full">
           <div className="flex gap-6">
             <LikeButton
-              postId={post?.id}
-              initialLikes={post?.likes.map((like) => like.userId)}
+              postId={post.id}
+              initialLikes={post.likes.map((like) => like.userId)}
             />
             <button type="button" className="flex items-center gap-2">
               <IconMessage className="size-5" />
@@ -61,7 +59,7 @@ export const PostCard = ({ post }: PostCardProps) => {
           <div className="flex items-center gap-2">
             <IconClock className="size-4" />
             <span className="text-sm text-neutral-400">
-              {formatTimeAgo(new Date(post?.createdAt ?? new Date()))} ago
+              {formatTimeAgo(new Date(post.createdAt))} ago
             </span>
           </div>
         </div>
