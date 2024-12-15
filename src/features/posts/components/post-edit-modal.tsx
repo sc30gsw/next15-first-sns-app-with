@@ -43,7 +43,7 @@ export const PostEditModal = ({
         action: {
           label: 'View',
           onClick: () => {
-            router.push(`/posts/${postId}`)
+            router.push(`/${postId}`)
           },
         },
       })

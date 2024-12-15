@@ -19,7 +19,7 @@ export const PostCard = ({ post }: PostCardProps) => {
       <Card.Header>
         <div className="flex justify-between items-center">
           <div className="flex w-full gap-4 items-center">
-            <Link href={`/profile/${post.author.id}`}>
+            <Link href={'#'}>
               <Avatar
                 src={post.author.image ? post.author.image : '/placeholder.png'}
                 alt="post avatar"
