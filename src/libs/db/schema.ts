@@ -74,7 +74,7 @@ export const posts = pgTable(
     content: text('content').notNull(),
     authorId: text('author_id')
       .notNull()
-      .references(() => users.id),
+      .references(() => users.id, { onDelete: 'cascade', onUpdate: 'cascade' }),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
     updatedAt: timestamp('updated_at', { mode: 'date' })
       .defaultNow()
@@ -101,10 +101,10 @@ export const likes = pgTable(
   {
     postId: text('post_id')
       .notNull()
-      .references(() => posts.id),
+      .references(() => posts.id, { onDelete: 'cascade', onUpdate: 'cascade' }),
     userId: text('user_id')
       .notNull()
-      .references(() => users.id),
+      .references(() => users.id, { onDelete: 'cascade', onUpdate: 'cascade' }),
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
     updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow().notNull(),
   },
