@@ -1,7 +1,8 @@
+'use client'
+
 import '@/utils/zod-error-map-utils'
 import { Button, Form, Loader, TextField } from '@/components/ui'
 import { addPost } from '@/features/posts/actions/add-post-action'
-import type { OptimisticPost } from '@/features/posts/types/optimistic-post'
 import { postFormSchema } from '@/features/posts/types/schema/post-form-schema'
 import { getFormProps, getInputProps, useForm } from '@conform-to/react'
 import { getZodConstraint, parseWithZod } from '@conform-to/zod'
@@ -10,11 +11,7 @@ import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useActionState } from 'react'
 
-type PostFormProps = {
-  addOptimisticPost: (action: OptimisticPost) => void
-}
-
-export const PostForm = ({ addOptimisticPost }: PostFormProps) => {
+export const PostForm = () => {
   const { data: session } = useSession()
   const router = useRouter()
 
@@ -25,20 +22,6 @@ export const PostForm = ({ addOptimisticPost }: PostFormProps) => {
     lastResult,
     onValidate({ formData }) {
       return parseWithZod(formData, { schema: postFormSchema })
-    },
-    onSubmit(_, { formData }) {
-      addOptimisticPost({
-        id: crypto.randomUUID(),
-        content: formData.get('content') as string,
-        authorId: session?.user?.id ?? '',
-        createdAt: new Date().toISOString(),
-        author: {
-          id: session?.user?.id ?? '',
-          name: session?.user?.name ?? '',
-          image: session?.user?.image ?? '',
-        },
-        likes: [],
-      })
     },
     defaultValue: {
       content: '',
