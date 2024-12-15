@@ -1,4 +1,4 @@
-import { Avatar, Heading, Menu } from '@/components/ui'
+import { Avatar, Heading, Menu, Skeleton } from '@/components/ui'
 import {
   IconDashboard,
   IconDeviceDesktop,
@@ -13,8 +13,17 @@ import { useTheme } from 'next-themes'
 import Link from 'next/link'
 
 export const SidebarUserMenu = () => {
-  const { data: session } = useSession()
+  const { data: session, status } = useSession()
   const { resolvedTheme, setTheme } = useTheme()
+
+  if (status === 'loading') {
+    return (
+      <div className="flex items-center py-2 gap-2">
+        <Skeleton shape="circle" className="size-10" />
+        <Skeleton className="h-5 w-36" />
+      </div>
+    )
+  }
 
   if (!session) {
     return (
