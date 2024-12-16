@@ -33,7 +33,7 @@ export const PostMenu = ({ post }: PostMenuProps) => {
 
   const handleDelete = () => {
     startTransition(async () => {
-      const result = await deletePost(post?.id)
+      const result = await deletePost(post.id)
 
       if (result.isSuccess) {
         toast.success('Post deleted successfully')

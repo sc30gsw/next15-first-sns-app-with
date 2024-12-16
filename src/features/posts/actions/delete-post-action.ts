@@ -6,11 +6,7 @@ import { posts } from '@/libs/db/schema'
 import { eq } from 'drizzle-orm'
 import { revalidateTag } from 'next/cache'
 
-export const deletePost = async (postId?: string) => {
-  if (!postId) {
-    return { isSuccess: false, error: { message: 'Post not found' } }
-  }
-
+export const deletePost = async (postId: string) => {
   const session = await getSession()
 
   if (!session?.user) {
