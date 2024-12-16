@@ -15,6 +15,7 @@ import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { useTransition } from 'react'
 import { Controller } from 'react-hook-form'
+import { toast } from 'sonner'
 
 export const SignInForm = () => {
   const { control, handleSubmit } = useSafeForm<SignInSchema>({
@@ -34,6 +35,8 @@ export const SignInForm = () => {
         password: data.password,
         callbackUrl: '/',
       })
+
+      toast.success('User logged in successfully')
     })
   }
 

@@ -42,6 +42,8 @@ export const SignUpForm = () => {
         return
       }
 
+      toast.success('User created successfully')
+
       await signIn('credentials', {
         email: data.email,
         password: data.password,
