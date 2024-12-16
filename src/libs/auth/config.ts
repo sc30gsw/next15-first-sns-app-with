@@ -115,6 +115,7 @@ export const config = {
   pages: {
     signIn: '/sign-in',
   },
+  trustHost: true,
   debug: process.env.NODE_ENV === 'development',
   session: { strategy: 'jwt' },
   secret: env.AUTH_SECRET,

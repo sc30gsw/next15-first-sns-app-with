@@ -93,7 +93,7 @@ export const SidebarUserMenu = () => {
           </Menu.Content>
         </Menu.Submenu>
         <Menu.Separator />
-        <Menu.Item href="#logout" onAction={() => signOut()}>
+        <Menu.Item href="#logout" onAction={async () => await signOut()}>
           <IconLogout />
           Log out
         </Menu.Item>
