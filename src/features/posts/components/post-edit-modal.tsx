@@ -5,7 +5,7 @@ import { getFormProps, getInputProps, useForm } from '@conform-to/react'
 import { getZodConstraint, parseWithZod } from '@conform-to/zod'
 import { IconSend } from 'justd-icons'
 import { useRouter } from 'next/navigation'
-import { useActionState, useEffect } from 'react'
+import { useActionState, useTransition } from 'react'
 import { toast } from 'sonner'
 
 type PostEditModalProps = {
@@ -21,7 +21,8 @@ export const PostEditModal = ({
   isOpen,
   onClose,
 }: PostEditModalProps) => {
-  const [lastResult, action, isPending] = useActionState(editPost, null)
+  const [lastResult] = useActionState(editPost, null)
+  const [isPending, startTransition] = useTransition()
 
   const [form, fields] = useForm({
     constraint: getZodConstraint(postFormSchema),
@@ -37,18 +38,30 @@ export const PostEditModal = ({
 
   const router = useRouter()
 
-  useEffect(() => {
-    if (lastResult?.status === 'success') {
-      toast('Successfully updated on your post!', {
-        action: {
-          label: 'View',
-          onClick: () => {
-            router.push(`/${postId}`)
+  const action = (formData: FormData) => {
+    startTransition(async () => {
+      if (!postId) {
+        return
+      }
+
+      formData.append('postId', postId)
+
+      const result = await editPost(null, formData)
+
+      if (result.status === 'success') {
+        toast('Successfully updated on your post!', {
+          action: {
+            label: 'View',
+            onClick: () => {
+              router.push(`/${postId}`)
+            },
           },
-        },
-      })
-    }
-  }, [lastResult, postId, router])
+        })
+      } else {
+        toast.error('Failed to update post')
+      }
+    })
+  }
 
   return (
     <Modal isOpen={isOpen} onOpenChange={isPending ? undefined : onClose}>
@@ -56,17 +69,7 @@ export const PostEditModal = ({
         <Modal.Header>
           <Modal.Title>Edit Post</Modal.Title>
         </Modal.Header>
-        <Form
-          {...getFormProps(form)}
-          action={(formData) => {
-            if (!postId) {
-              return
-            }
-
-            formData.append('postId', postId)
-            action(formData)
-          }}
-        >
+        <Form {...getFormProps(form)} action={action}>
           <TextField
             {...getInputProps(fields.content, { type: 'text' })}
             placeholder="What's on your mind?"
