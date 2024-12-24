@@ -26,6 +26,8 @@ export const PostEditModal = ({
   isOpen,
   onClose,
 }: PostEditModalProps) => {
+  const router = useRouter()
+
   // https://zenn.dev/daijinload/articles/7fbe73e040c0a2
   // https://zenn.dev/tsuboi/articles/0fc94356667284#%E3%81%8A%E3%81%BE%E3%81%91%EF%BC%9A%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%AE%E7%B5%90%E6%9E%9C%E3%82%92%E3%83%88%E3%83%BC%E3%82%B9%E3%83%88%E3%81%A7%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B
   const [lastResult, action, isPending] = useActionState(
@@ -68,8 +70,6 @@ export const PostEditModal = ({
       content,
     },
   })
-
-  const router = useRouter()
 
   return (
     <Modal isOpen={isOpen} onOpenChange={isPending ? undefined : onClose}>
