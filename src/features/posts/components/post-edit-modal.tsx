@@ -22,37 +22,36 @@ export const PostEditModal = ({
   onClose,
 }: PostEditModalProps) => {
   const router = useRouter()
-
   // https://zenn.dev/daijinload/articles/7fbe73e040c0a2
   // https://zenn.dev/tsuboi/articles/0fc94356667284#%E3%81%8A%E3%81%BE%E3%81%91%EF%BC%9A%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%AE%E7%B5%90%E6%9E%9C%E3%82%92%E3%83%88%E3%83%BC%E3%82%B9%E3%83%88%E3%81%A7%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B
-  const [lastResult, action, isPending] = useActionState(
-    async (
-      prev: Awaited<ReturnType<typeof editPost>> | null | undefined,
-      formData: FormData,
-    ): Promise<Awaited<ReturnType<typeof editPost>> | undefined> => {
-      if (!postId) {
-        return
-      }
+  const [lastResult, action, isPending] = useActionState<
+    Awaited<ReturnType<typeof editPost>> | null | undefined,
+    FormData
+  >(async (prev, formData) => {
+    if (!postId) {
+      return
+    }
 
-      formData.append('postId', postId)
+    formData.append('postId', postId)
 
-      const result = await editPost(prev, formData)
+    const result = await editPost(prev, formData)
 
-      if (result.status === 'success') {
-        toast('Successfully updated on your post!', {
-          action: {
-            label: 'View',
-            onClick: () => {
-              router.push(`/${postId}`)
-            },
+    if (result.status === 'success') {
+      toast('Successfully updated on your post!', {
+        action: {
+          label: 'View',
+          onClick: () => {
+            router.push(`/${postId}`)
           },
-        })
-      } else {
-        toast.error('Failed to update post')
-      }
-    },
-    null,
-  )
+        },
+      })
+
+      return result
+    }
+
+    toast.error('Failed to update post')
+    return result
+  }, null)
 
   const [form, fields] = useForm({
     constraint: getZodConstraint(postFormSchema),
