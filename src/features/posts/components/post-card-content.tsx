@@ -8,6 +8,7 @@ type ResType = InferResponseType<typeof client.api.posts.$get>
 
 export const PostsCardContent = async () => {
   const res = await fetcher<ResType>(url, {
+    cache: 'force-cache',
     next: { tags: ['posts'] },
   })
 

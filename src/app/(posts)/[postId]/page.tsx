@@ -21,6 +21,7 @@ const fetchPost = async (postId: string) => {
   })
 
   const res = await fetcher<ResType>(url, {
+    cache: 'force-cache',
     next: { tags: [`posts/${postId}`] },
   })
 
